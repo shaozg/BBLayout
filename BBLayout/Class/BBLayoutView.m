@@ -13,13 +13,15 @@
 //与前面的view或者左边的距离
 @property (nonatomic, assign) CGFloat leading;
 
+//要布局的view
+@property (nonatomic, strong) UIView *view;
+
 // 自动适应大小
-@property (nonatomic, assign) BOOL fitSize;
+@property (nonatomic, assign) BOOL fitWidth;
 
 @property (nonatomic, assign) BOOL fillWidth;
 
-@property (nonatomic, strong) UIView *view;
-
+//只有当fitWidth = YES并且布局发生变化时候才用这个值
 @property (nonatomic, assign) CGFloat orignalWidth;
 
 @property (nonatomic, assign) CGFloat yPad;
@@ -148,13 +150,13 @@
 }
 
 - (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading {
-    [self addItemModelWithView:theView leading:leading fitSize:NO];
+    [self addItemModelWithView:theView leading:leading fitWidth:NO];
 }
 
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fitSize:(BOOL)fitSize {
+- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fitWidth:(BOOL)fitWidth {
     BBLayoutItemModel *itemModel = [BBLayoutItemModel defaultItemWithView:theView];
     itemModel.leading = leading;
-    itemModel.fitSize = fitSize;
+    itemModel.fitWidth = fitWidth;
     [self addItemModel:itemModel];
 }
 - (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fillWidth:(BOOL)fillWidth {
@@ -285,10 +287,10 @@
     return width;
 }
 
-- (BOOL)haveFitSizeView {
+- (BOOL)haveFitWidthView {
     for (BBLayoutItemModel *vm in self.vms) {
-        if (vm.fitSize && !vm.view.hidden) {
-            return vm.fitSize;
+        if (vm.fitWidth) {
+            return vm.fitWidth;
         }
     }
     return NO;
@@ -363,11 +365,11 @@
     //如果没有可压缩的view，那么继续布局完后面的
     CGFloat right = CGRectGetMaxX(leading_view.frame);
     if (right > bb_width) {
-        if ([lineVM haveFitSizeView]) {
+        if ([lineVM haveFitWidthView]) {
             BBLayoutItemModel *tail_vm = nil;
             for (NSInteger idx = lineVM.count-1; idx >= 0; idx --) {
                 BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:idx];
-                if (itemVM.fitSize) {
+                if (itemVM.fitWidth) {
                     if (tail_vm != nil) {
                         if (idx == 0) {
                             itemVM.left = itemVM.leading;
@@ -453,11 +455,11 @@
     //如果已经越界了，就要检查是否有可压缩的view,如果有，倒着布局后面的，然后剩余的分给压缩的view
     //如果没有可压缩的view，那么继续布局完后面的
     if (tail_vm.left < tail_vm.leading) {
-        if ([lineVM haveFitSizeView]) {
+        if ([lineVM haveFitWidthView]) {
             BBLayoutItemModel *head_vm = nil;
             for (NSInteger idx = 0; idx < lineVM.count; idx ++) {
                 BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:idx];
-                if (itemVM.fitSize) {
+                if (itemVM.fitWidth) {
                     if (head_vm != nil) {
                         if ([lineVM.vms lastObject] == itemVM) {
                             itemVM.left = head_vm.right + itemVM.leading;
@@ -534,7 +536,7 @@
         for (NSInteger li = 0; li < [lineVM count]; li ++) {
             BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
             [itemVM revertWidth];
-            if (itemVM.fitSize) {
+            if (itemVM.fitWidth) {
                 itemVM.width -= (totalWidth - bb_width);
                 break;
             }
@@ -564,7 +566,7 @@
         for (NSInteger li = 0; li < [lineVM count]; li ++) {
             BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
             [itemVM revertWidth];
-            if (itemVM.fitSize) {
+            if (itemVM.fitWidth) {
                 itemVM.width -= (totalWidth - bb_width);
                 break;
             }
@@ -601,7 +603,7 @@
             BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
             [itemVM revertWidth];
             //修正自实行的宽度
-            if (itemVM.fitSize) {
+            if (itemVM.fitWidth) {
                 itemVM.width -= (totalWidth - bb_width);
                 break;
             }
@@ -820,7 +822,7 @@
         return;
     }
     if (fitWidth) {
-        [lineModel addItemModelWithView:view leading:leading fitSize:fitWidth];
+        [lineModel addItemModelWithView:view leading:leading fitWidth:fitWidth];
     } else if (fillWidth) {
         [lineModel addItemModelWithView:view leading:leading fillWidth:fillWidth];
     } else {
@@ -858,7 +860,7 @@
         return;
     }
     BBLayoutItemModel *layoutItem = [lineModel addItemModelWithView:view leading:leading index:index fillWidth:fillWidth];
-    layoutItem.fitSize = fitWidth;
+    layoutItem.fitWidth = fitWidth;
     
     [self addSubview:view];
 }
