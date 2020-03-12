@@ -717,6 +717,7 @@
     if (self = [super init]) {
         self.horizontalAlignment = BBLayoutHorizontalAlignmentLeft;
         self.verticalAlignment = BBLayoutVerticalAlignmentCenter;
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
@@ -726,6 +727,7 @@
     if (self) {
         self.horizontalAlignment = BBLayoutHorizontalAlignmentLeft;
         self.verticalAlignment = BBLayoutVerticalAlignmentCenter;
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }

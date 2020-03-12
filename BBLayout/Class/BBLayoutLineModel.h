@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addItemModelWithView:(UIView *)theView;
 - (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading;
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fitWidth:(BOOL)fitSize;
+- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fitWidth:(BOOL)fitWidth;
 - (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fillWidth:(BOOL)fillWidth;
 
 // 只有 alignment == BBLayoutHorizontalAlignmentJustified 的时候，才需要调用这个方法。否则忽略index
