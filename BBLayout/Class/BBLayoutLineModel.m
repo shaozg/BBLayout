@@ -113,6 +113,13 @@
     frame.size.height = height;
     [self.view setFrame:frame];
 }
+
+- (void)calcLabelFitSize {
+    if (self.fitWidth && [self.view isKindOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)(self.view);
+        [label sizeToFit];
+    }
+}
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,9 +185,9 @@
     itemModel.index = index;
     itemModel.fillWidth = fillWidth;
     if (index >= 0) {
-        [self.vms insertObject:itemModel atIndex:index];
+        [self insertItemModel:itemModel atIndex:index];
     } else {
-        [self.vms addObject:itemModel];
+        [self addItemModel:itemModel];
     }
     return itemModel;
 }
@@ -188,7 +195,7 @@
 - (void)insertView:(UIView *)theView leading:(CGFloat)leading atIndex:(NSInteger)index {
     BBLayoutItemModel *itemModel = [BBLayoutItemModel defaultItemWithView:theView];
     itemModel.leading = leading;
-    [self.vms insertObject:itemModel atIndex:index];
+    [self insertItemModel:itemModel atIndex:index];
 }
 
 - (void)removeView:(UIView *)theView {
@@ -212,12 +219,24 @@
     [self.vms removeAllObjects];
 }
 
-- (void)addItemModel:(BBLayoutItemModel *)itemModel {
-    [self.vms addObject:itemModel];
+- (void)insertItemModel:(BBLayoutItemModel *)itemModel atIndex:(NSInteger)index {
+    if ([self containsView:itemModel.view]) {
+        [self removeView:itemModel.view];
+    }
+    
+    if (index < self.count) {
+        [self.vms insertObject:itemModel atIndex:index];
+    } else {
+        [self.vms addObject:itemModel];
+    }
 }
 
-- (void)addItemVM:(BBLayoutItemModel *)vm {
-    [self.vms addObject:vm];
+- (void)addItemModel:(BBLayoutItemModel *)itemModel {
+    if ([self containsView:itemModel.view]) {
+        [self removeView:itemModel.view];
+    }
+    
+    [self.vms addObject:itemModel];
 }
 
 - (void)removeItemVM:(BBLayoutItemModel *)vm {
@@ -359,6 +378,8 @@
     UIView *leading_view = nil;
     for (NSInteger li = 0; li < [lineVM count]; li ++) {
         BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
+        [itemVM calcLabelFitSize];
+        
         if (nil == leading_view) {
             itemVM.left = itemVM.leading;
         } else {
@@ -451,6 +472,8 @@
     BBLayoutItemModel *tail_vm = nil;
     for (NSInteger i = lineVM.count - 1; i >= 0; i --) {
         BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:i];
+        [itemVM calcLabelFitSize];
+        
         if (nil != tail_vm) {
             itemVM.right = tail_vm.left - tail_vm.leading;
         } else {
@@ -780,6 +803,22 @@
         [self layout_alignEqualSpace:bb_width];
     } else if (BBLayoutHorizontalAlignmentJustified == align) {
         [self layout_alignJustified:bb_width];
+    }
+    
+    //处理UILabel的高度
+    for (BBLayoutItemModel *itemVM in self.vms) {
+        if ([itemVM.view isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)(itemVM.view);
+            if (label.numberOfLines == 0 || label.numberOfLines > 1) {
+                CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
+                itemVM.height = rect.size.height + 0.1;
+                break;
+            }
+            
+            if (label.frame.size.height <= 0.001) {
+                itemVM.height = label.font.lineHeight;
+            }
+        }
     }
 }
 

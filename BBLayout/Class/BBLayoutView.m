@@ -410,6 +410,12 @@
 }
 
 - (void)layout {
+    //先处理X以及Width，因为UILabel自身数据变化可能会修改高度
+    for (BBLayoutLineModel *lineVM in self.lineVMs) {
+        [lineVM layoutWithMaxWidth:self.bb_width hAlignment:self.horizontalAlignment];
+    }
+    
+    //再处理Y以及Height
     CGFloat yPad = [self p_getYPad];
     CGFloat lineCenterY = yPad;
     for (BBLayoutLineModel *lineVM in self.lineVMs) {
@@ -417,8 +423,6 @@
         lineVM.bb_centerY = lineCenterY;
         
         lineCenterY += [lineVM maxHeight] / 2.f;
-        
-        [lineVM layoutWithMaxWidth:self.bb_width hAlignment:self.horizontalAlignment];
     }
 }
 

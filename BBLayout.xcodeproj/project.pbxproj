@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		680F3BF0241CD5A000D7A5FE /* BBLayoutLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */; };
+		680F3BF6241D27CF00D7A5FE /* CellTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */; };
+		680F3BFA241D284900D7A5FE /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BF9241D284900D7A5FE /* SongCell.m */; };
 		6833367F240E19DD008A9849 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833367E240E19DD008A9849 /* AppDelegate.m */; };
 		68333685240E19DD008A9849 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68333684240E19DD008A9849 /* ViewController.m */; };
 		68333688240E19DD008A9849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68333686240E19DD008A9849 /* Main.storyboard */; };
@@ -37,6 +39,10 @@
 
 /* Begin PBXFileReference section */
 		680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBLayoutLineModel.m; sourceTree = "<group>"; };
+		680F3BF4241D27CF00D7A5FE /* CellTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellTableViewController.h; sourceTree = "<group>"; };
+		680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellTableViewController.m; sourceTree = "<group>"; };
+		680F3BF8241D284900D7A5FE /* SongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
+		680F3BF9241D284900D7A5FE /* SongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
 		6833367A240E19DD008A9849 /* BBLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6833367D240E19DD008A9849 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6833367E240E19DD008A9849 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		680F3BF7241D282800D7A5FE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				680F3BF8241D284900D7A5FE /* SongCell.h */,
+				680F3BF9241D284900D7A5FE /* SongCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		68333671240E19DD008A9849 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +167,7 @@
 		683336B9240E376A008A9849 /* DemoVC */ = {
 			isa = PBXGroup;
 			children = (
+				680F3BF7241D282800D7A5FE /* Cell */,
 				683336BA240E376A008A9849 /* Single1LineViewController.h */,
 				683336BB240E376A008A9849 /* Single1LineViewController.m */,
 				683336BD240E37A6008A9849 /* Demo2ViewController.h */,
@@ -162,6 +178,8 @@
 				683336C4240E4ECC008A9849 /* MultiLineViewController.m */,
 				683336ED240F4B8E008A9849 /* CellDemoViewController.h */,
 				683336EE240F4B8E008A9849 /* CellDemoViewController.m */,
+				680F3BF4241D27CF00D7A5FE /* CellTableViewController.h */,
+				680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */,
 			);
 			path = DemoVC;
 			sourceTree = "<group>";
@@ -270,7 +288,9 @@
 				683336C2240E428A008A9849 /* FitWidthViewController.m in Sources */,
 				683336EF240F4B8E008A9849 /* CellDemoViewController.m in Sources */,
 				6833367F240E19DD008A9849 /* AppDelegate.m in Sources */,
+				680F3BF6241D27CF00D7A5FE /* CellTableViewController.m in Sources */,
 				683336B8240E2ECD008A9849 /* HAlignTestView.m in Sources */,
+				680F3BFA241D284900D7A5FE /* SongCell.m in Sources */,
 				680F3BF0241CD5A000D7A5FE /* BBLayoutLineModel.m in Sources */,
 				68333690240E19DF008A9849 /* main.m in Sources */,
 				683336BC240E376A008A9849 /* Single1LineViewController.m in Sources */,

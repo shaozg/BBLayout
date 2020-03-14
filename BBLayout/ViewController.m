@@ -14,6 +14,7 @@
 #import "FitWidthViewController.h"
 #import "MultiLineViewController.h"
 #import "CellDemoViewController.h"
+#import "CellTableViewController.h"
 
 @interface ViewController ()
 
@@ -53,7 +54,11 @@
         btn1.tag = lineIndex;
         [_layoutView addView:btn1 leading:0 lineNumber:lineIndex++];
         
-        btn1 = [ViewFactory bigBtnWithTitle:@"实现一个cell" target:self action:@selector(onClickBtn:) tag:lineIndex];
+        btn1 = [ViewFactory bigBtnWithTitle:@"一个cell" target:self action:@selector(onClickBtn:) tag:lineIndex];
+        btn1.tag = lineIndex;
+        [_layoutView addView:btn1 leading:0 lineNumber:lineIndex++];
+        
+        btn1 = [ViewFactory bigBtnWithTitle:@"多个cell" target:self action:@selector(onClickBtn:) tag:lineIndex];
         btn1.tag = lineIndex;
         [_layoutView addView:btn1 leading:0 lineNumber:lineIndex++];
     }
@@ -80,6 +85,8 @@
         vc = [[MultiLineViewController alloc] init];
     } else if (btn.tag == 5) {
         vc = [[CellDemoViewController alloc] init];
+    } else if (btn.tag == 6) {
+        vc = [[CellTableViewController alloc] init];
     }
     vc.title = btn.titleLabel.text;
     if (vc) {
