@@ -47,8 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addView:(UIView *)view leading:(CGFloat)leading lineNumber:(NSInteger)lineNumber fillWidth:(BOOL)fillWidth;
 - (void)addView:(UIView *)view leading:(CGFloat)leading index:(int)index;
 - (void)addView:(UIView *)view leading:(CGFloat)leading index:(int)index lineNumber:(NSInteger)lineNumber;
-- (void)addView:(UIView *)view leading:(CGFloat)leading index:(int)index lineNumber:(NSInteger)lineNumber fillWidth:(BOOL)fillWidth;
-
 
 /// 插入一个view，通常是删除的view，又要加回来
 /// @param view 要添加的view
@@ -57,15 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param index 插入的位置
 - (void)insertView:(UIView *)view leading:(CGFloat)leading lineNumber:(NSInteger)lineNumber atIndex:(NSInteger)index;
 
-/// 直接添加一行
-- (void)addLineModel:(BBLayoutLineModel *)lineModel;
-- (void)addLineWithSpace:(CGFloat)lineSpace;
-
-- (void)updateLeading:(CGFloat)leading forView:(UIView *)view;
-- (void)updateYPad:(CGFloat)yPad forView:(UIView *)view;
-- (void)updateOtherLeading:(CGFloat)leading forView:(UIView *)view;
-- (void)updateIndex:(int)index forView:(UIView *)view;
-
 /// 删除指定的子view
 /// @param view 要删除的view
 - (void)removeView:(UIView *)view;
@@ -73,22 +62,32 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param index 具体哪一行的view，便于快速定位
 - (void)removeView:(UIView *)view lineIndex:(NSInteger)index;
 
+
+/// 直接添加一行
+- (void)addLineModel:(BBLayoutLineModel *)lineModel;
+- (void)addLineWithSpace:(CGFloat)lineSpace;
+
 /// 删除一行
 /// @param index 行索引
 - (void)removeLineModelAtIndex:(NSInteger)index;
 - (void)removeLineModel:(BBLayoutLineModel *)lineModel;
 
-/// 修改
+/// 修改leading等方法
+/// @param leading 前置偏移量
+/// @param view 要修改属性的view
+- (void)updateLeading:(CGFloat)leading forView:(UIView *)view;
+- (void)updateYPad:(CGFloat)yPad forView:(UIView *)view;
+- (void)updateOtherLeading:(CGFloat)leading forView:(UIView *)view;
+- (void)updateIndex:(int)index forView:(UIView *)view;
+
+/// 修改对齐方式和lineSpace
 - (void)updateHorizontalAlignment:(BBLayoutHorizontalAlignment)hAlignment;
 - (void)updateHorizontalAlignment:(BBLayoutHorizontalAlignment)hAlignment lineNumber:(NSInteger)lineNumber;
 - (void)updateLineSpace:(CGFloat)lineSpace;
 - (void)updateLineSpace:(CGFloat)lineSpace lineIndex:(NSInteger)lineIndex;
 
-/// @param lineIndex 行索引
-- (CGFloat)lineSpaceWithIndex:(NSInteger)lineIndex;
 
-
-/// 改方法需要在子view的frame发生变化后调用
+/// 改方法需要在子view的frame发生变化后手动调用
 - (void)layout;
 
 

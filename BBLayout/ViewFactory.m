@@ -25,6 +25,15 @@ CGFloat naviBarHeight() {
     return label;
 }
 
++ (UILabel *)lableWithTitle2:(NSString *)title {
+    UILabel *l = [ViewFactory lableWithTitle:title];
+    l.font = [UIFont systemFontOfSize:12];
+    [l sizeToFit];
+    l.backgroundColor = [UIColor yellowColor];
+    l.textColor = [UIColor blackColor];
+    return l;
+}
+
 + (UIButton *)btnWithTitle:(NSString *)title size:(CGSize)size target:(id)target action:(SEL)action tag:(NSInteger)tag {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:title forState:UIControlStateNormal];

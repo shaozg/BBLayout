@@ -19,6 +19,7 @@ CGFloat naviBarHeight(void);
 @interface ViewFactory : NSObject
 
 + (UILabel *)lableWithTitle:(NSString *)title;
++ (UILabel *)lableWithTitle2:(NSString *)title;
 
 + (UIButton *)btnWithTitle:(NSString *)title size:(CGSize)size target:(id)target action:(SEL)action tag:(NSInteger)tag;
 + (UIButton *)bigBtnWithTitle:(NSString *)title target:(id)target action:(SEL)action tag:(NSInteger)tag;

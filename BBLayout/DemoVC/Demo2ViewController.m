@@ -34,10 +34,10 @@
         _lv_justifiedContainer = [BBLayoutView layoutWithFrame:CGRectZero horizontalAlignment:BBLayoutHorizontalAlignmentJustified];
         
         BBLayoutLineModel *lineModel = [BBLayoutLineModel lineModel];
-        [lineModel addItemModelWithView:[ViewFactory lableWithTitle:@"索引0"] leading:5 index:0];
-        [lineModel addItemModelWithView:[ViewFactory lableWithTitle:@"索引1"] leading:10 index:1];
-        [lineModel addItemModelWithView:[ViewFactory lableWithTitle:@"索引-1"] leading:5 index:-1];
-        [lineModel addItemModelWithView:[ViewFactory lableWithTitle:@"索引-2"] leading:10 index:-2];
+        [lineModel addView:[ViewFactory lableWithTitle:@"索引0"] leading:5 index:0];
+        [lineModel addView:[ViewFactory lableWithTitle:@"索引1"] leading:10 index:1];
+        [lineModel addView:[ViewFactory lableWithTitle:@"索引-1"] leading:5 index:-1];
+        [lineModel addView:[ViewFactory lableWithTitle:@"索引-2"] leading:10 index:-2];
         [_lv_justifiedContainer addLineModel:lineModel];
     }
     return _lv_justifiedContainer;

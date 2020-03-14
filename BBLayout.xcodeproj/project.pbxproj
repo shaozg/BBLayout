@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680F3BF0241CD5A000D7A5FE /* BBLayoutLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */; };
 		6833367F240E19DD008A9849 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833367E240E19DD008A9849 /* AppDelegate.m */; };
 		68333685240E19DD008A9849 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68333684240E19DD008A9849 /* ViewController.m */; };
 		68333688240E19DD008A9849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68333686240E19DD008A9849 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBLayoutLineModel.m; sourceTree = "<group>"; };
 		6833367A240E19DD008A9849 /* BBLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6833367D240E19DD008A9849 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6833367E240E19DD008A9849 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -140,8 +142,9 @@
 			children = (
 				683336A8240E1B23008A9849 /* BBLayoutView.h */,
 				683336A5240E1B23008A9849 /* BBLayoutView.m */,
-				683336A6240E1B23008A9849 /* BBLayoutDefine.h */,
 				683336A7240E1B23008A9849 /* BBLayoutLineModel.h */,
+				680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */,
+				683336A6240E1B23008A9849 /* BBLayoutDefine.h */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				683336EF240F4B8E008A9849 /* CellDemoViewController.m in Sources */,
 				6833367F240E19DD008A9849 /* AppDelegate.m in Sources */,
 				683336B8240E2ECD008A9849 /* HAlignTestView.m in Sources */,
+				680F3BF0241CD5A000D7A5FE /* BBLayoutLineModel.m in Sources */,
 				68333690240E19DF008A9849 /* main.m in Sources */,
 				683336BC240E376A008A9849 /* Single1LineViewController.m in Sources */,
 				683336C5240E4ECC008A9849 /* MultiLineViewController.m in Sources */,

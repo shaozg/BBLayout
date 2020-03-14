@@ -49,7 +49,8 @@
         sortLabel.frame = CGRectMake(0, 0, 40, 30);
         [_hLayoutView addView:sortLabel leading:10 index:0];
         
-        [_hLayoutView addView:self.vTitleLayoutView leading:10 index:1 lineNumber:0 fillWidth:YES];
+        [_hLayoutView addView:self.vTitleLayoutView leading:10 lineNumber:0 fillWidth:YES];
+        [_hLayoutView updateIndex:1 forView:self.vTitleLayoutView];
         
         CGSize s = CGSizeMake(30, 30);
         self.mvView = [ViewFactory imageViewWithSize:s];
@@ -69,15 +70,12 @@
         self.titleLabel = [ViewFactory lableWithTitle:@"给未来"];
         [_vTitleLayoutView addView:self.titleLabel leading:0 lineNumber:0 fitWidth:YES];
         
-        UILabel *l = [ViewFactory lableWithTitle:@"会员"];
-        l.font = [UIFont systemFontOfSize:12];
-        [l sizeToFit];
-        l.backgroundColor = [UIColor yellowColor];
-        l.textColor = [UIColor blackColor];
+        UILabel *l = [ViewFactory lableWithTitle2:@"会员"];
         self.memLabel = l;
         self.descLabel = [ViewFactory lableWithTitle:@"李现"];
         [_vTitleLayoutView addLineWithSpace:10];
-        [_vTitleLayoutView addView:l leading:0 lineNumber:1];
+        [_vTitleLayoutView addView:[ViewFactory lableWithTitle2:@"无损"] leading:0 lineNumber:1];
+        [_vTitleLayoutView addView:l leading:5 lineNumber:1];
         [_vTitleLayoutView addView:self.descLabel leading:5 lineNumber:1 fillWidth:YES];
     }
     return _vTitleLayoutView;
@@ -110,7 +108,7 @@
         self.descLabel.text = @"李现";
     }
     [self.titleLabel sizeToFit];
-    [self.vTitleLayoutView layout];
+//    [self.vTitleLayoutView layout];
     [btn setTitle:!self.longTitle ? @"短标题" : @"长标题" forState:UIControlStateNormal];
     self.longTitle = !self.longTitle;
 }
@@ -118,17 +116,16 @@
 - (void)hideMemLabelBtn:(UIButton *)btn {
     if ([self.memLabel superview] != nil) {
         [self.vTitleLayoutView removeView:self.memLabel];
-        [self.vTitleLayoutView updateLeading:0 forView:self.descLabel];
         [btn setTitle:@"显示会员" forState:UIControlStateNormal];
     } else {
-        [self.vTitleLayoutView insertView:self.memLabel leading:0 lineNumber:1 atIndex:0];
-        [self.vTitleLayoutView updateLeading:5 forView:self.descLabel];
+        [self.vTitleLayoutView insertView:self.memLabel leading:5 lineNumber:1 atIndex:1];
         [btn setTitle:@"隐藏会员" forState:UIControlStateNormal];
     }
 }
 
 - (void)hideMVBtn:(UIButton *)btn {
     if (self.mvView.superview != nil) {
+        [self.titleLabel sizeToFit];
         [self.hLayoutView removeView:self.mvView];
         [btn setTitle:@"显示MV" forState:UIControlStateNormal];
     } else {

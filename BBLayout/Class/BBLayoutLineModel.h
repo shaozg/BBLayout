@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "BBLayoutDefine.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,18 +23,28 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)lineModel;
 + (instancetype)lineModelWithSpace:(CGFloat)space;
 
-- (void)addItemModelWithView:(UIView *)theView;
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading;
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fitWidth:(BOOL)fitWidth;
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading fillWidth:(BOOL)fillWidth;
+- (void)addView:(UIView *)theView;
+- (void)addView:(UIView *)theView leading:(CGFloat)leading;
+- (void)addView:(UIView *)theView leading:(CGFloat)leading fitWidth:(BOOL)fitWidth;
+- (void)addView:(UIView *)theView leading:(CGFloat)leading fillWidth:(BOOL)fillWidth;
 
 // 只有 alignment == BBLayoutHorizontalAlignmentJustified 的时候，才需要调用这个方法。否则忽略index
-- (void)addItemModelWithView:(UIView *)theView leading:(CGFloat)leading index:(int)index;
+- (void)addView:(UIView *)theView leading:(CGFloat)leading index:(int)index;
 
-- (void)removeItemModelWithView:(UIView *)theView;
+- (void)insertView:(UIView *)theView leading:(CGFloat)leading atIndex:(NSInteger)index;
 
+- (void)removeView:(UIView *)theView;
+- (void)removeAllViews;
+
+// count of views
 - (NSUInteger)count;
 
+// Update
+- (void)updateLeading:(CGFloat)leading forView:(UIView *)view;
+- (void)updateYPad:(CGFloat)yPad forView:(UIView *)view;
+- (void)updateOtherSideLeading:(CGFloat)leading forView:(UIView *)view;
+- (void)updateIndex:(int)index forView:(UIView *)view;
+- (void)updateLineSpace:(CGFloat)space;
 @end
 
 NS_ASSUME_NONNULL_END
