@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateOtherSideLeading:(CGFloat)leading forView:(UIView *)view;
 - (void)updateIndex:(int)index forView:(UIView *)view;
 - (void)updateLineSpace:(CGFloat)space;
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view;
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -84,8 +84,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateHorizontalAlignment:(BBLayoutHorizontalAlignment)hAlignment;
 - (void)updateHorizontalAlignment:(BBLayoutHorizontalAlignment)hAlignment lineNumber:(NSInteger)lineNumber;
 - (void)updateLineSpace:(CGFloat)lineSpace;
-- (void)updateLineSpace:(CGFloat)lineSpace lineIndex:(NSInteger)lineIndex;
-
+- (void)updateLineSpace:(CGFloat)lineSpace lineNumber:(NSInteger)lineNumber;
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view;
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view lineNumber:(NSInteger)lineNumber;
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view;
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view lineNumber:(NSInteger)lineNumber;
 
 /// 改方法需要在子view的frame发生变化后手动调用
 - (void)layout;
@@ -98,6 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Debug Method
 - (void)showBorder;
 - (void)showBorderWithColor:(UIColor *)color;
+- (void)showBorderWithColor:(UIColor *)color width:(CGFloat)width;
 
 @end
 

@@ -15,6 +15,7 @@
 #import "MultiLineViewController.h"
 #import "CellDemoViewController.h"
 #import "CellTableViewController.h"
+#import "AnimationViewController.h"
 
 @interface ViewController ()
 
@@ -61,6 +62,10 @@
         btn1 = [ViewFactory bigBtnWithTitle:@"多个cell" target:self action:@selector(onClickBtn:) tag:lineIndex];
         btn1.tag = lineIndex;
         [_layoutView addView:btn1 leading:0 lineNumber:lineIndex++];
+        
+        btn1 = [ViewFactory bigBtnWithTitle:@"带动画的布局" target:self action:@selector(onClickBtn:) tag:lineIndex];
+        btn1.tag = lineIndex;
+        [_layoutView addView:btn1 leading:0 lineNumber:lineIndex++];
     }
     return _layoutView;
 }
@@ -87,6 +92,8 @@
         vc = [[CellDemoViewController alloc] init];
     } else if (btn.tag == 6) {
         vc = [[CellTableViewController alloc] init];
+    } else if (btn.tag == 7) {
+        vc = [[AnimationViewController alloc] init];
     }
     vc.title = btn.titleLabel.text;
     if (vc) {

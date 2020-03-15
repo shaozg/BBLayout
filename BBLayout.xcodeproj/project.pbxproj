@@ -10,6 +10,7 @@
 		680F3BF0241CD5A000D7A5FE /* BBLayoutLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */; };
 		680F3BF6241D27CF00D7A5FE /* CellTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */; };
 		680F3BFA241D284900D7A5FE /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BF9241D284900D7A5FE /* SongCell.m */; };
+		680F3BFD241DDB6F00D7A5FE /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680F3BFC241DDB6F00D7A5FE /* AnimationViewController.m */; };
 		6833367F240E19DD008A9849 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833367E240E19DD008A9849 /* AppDelegate.m */; };
 		68333685240E19DD008A9849 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68333684240E19DD008A9849 /* ViewController.m */; };
 		68333688240E19DD008A9849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68333686240E19DD008A9849 /* Main.storyboard */; };
@@ -43,6 +44,8 @@
 		680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellTableViewController.m; sourceTree = "<group>"; };
 		680F3BF8241D284900D7A5FE /* SongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
 		680F3BF9241D284900D7A5FE /* SongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
+		680F3BFB241DDB6F00D7A5FE /* AnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
+		680F3BFC241DDB6F00D7A5FE /* AnimationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
 		6833367A240E19DD008A9849 /* BBLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6833367D240E19DD008A9849 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6833367E240E19DD008A9849 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				683336EE240F4B8E008A9849 /* CellDemoViewController.m */,
 				680F3BF4241D27CF00D7A5FE /* CellTableViewController.h */,
 				680F3BF5241D27CF00D7A5FE /* CellTableViewController.m */,
+				680F3BFB241DDB6F00D7A5FE /* AnimationViewController.h */,
+				680F3BFC241DDB6F00D7A5FE /* AnimationViewController.m */,
 			);
 			path = DemoVC;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				683336BC240E376A008A9849 /* Single1LineViewController.m in Sources */,
 				683336C5240E4ECC008A9849 /* MultiLineViewController.m in Sources */,
 				683336A9240E1B23008A9849 /* BBLayoutView.m in Sources */,
+				680F3BFD241DDB6F00D7A5FE /* AnimationViewController.m in Sources */,
 				683336BF240E37A6008A9849 /* Demo2ViewController.m in Sources */,
 				683336AC240E1BAD008A9849 /* ViewFactory.m in Sources */,
 			);

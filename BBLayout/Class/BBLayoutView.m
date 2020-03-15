@@ -397,16 +397,59 @@
 }
 
 - (void)updateLineSpace:(CGFloat)lineSpace {
-    [self updateLineSpace:lineSpace lineIndex:0];
+    [self updateLineSpace:lineSpace lineNumber:0];
 }
-- (void)updateLineSpace:(CGFloat)lineSpace lineIndex:(NSInteger)lineIndex {
-    if (self.lineVMs.count <= lineIndex) {
+- (void)updateLineSpace:(CGFloat)lineSpace lineNumber:(NSInteger)lineNumber {
+    if (self.lineVMs.count <= lineNumber) {
         NSAssert(0, @"index beyonds self.lineVMs.count");
         return;
     }
     
-    BBLayoutLineModel *lineVM = [self.lineVMs objectAtIndex:lineIndex];
+    BBLayoutLineModel *lineVM = [self.lineVMs objectAtIndex:lineNumber];
     lineVM.lineSpace = lineSpace;
+}
+
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view {
+    for (BBLayoutLineModel *lineModel in self.lineVMs) {
+        if ([lineModel containsView:view]) {
+            [lineModel updateWidthBlock:widthBlock forView:view];
+            break;
+        }
+    }
+}
+
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view lineNumber:(NSInteger)lineNumber {
+    if (self.lineVMs.count <= lineNumber) {
+        NSAssert(0, @"index beyonds self.lineVMs.count");
+        return;
+    }
+    
+    BBLayoutLineModel *lineModel = nil;
+    if (self.lineVMs.count > lineNumber) {
+        lineModel = [self.lineVMs objectAtIndex:lineNumber];
+        [lineModel updateWidthBlock:widthBlock forView:view];
+    }
+}
+
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view {
+    for (BBLayoutLineModel *lineModel in self.lineVMs) {
+        if ([lineModel containsView:view]) {
+            [lineModel updateHeightBlock:heightBlock forView:view];
+            break;
+        }
+    }
+}
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view lineNumber:(NSInteger)lineNumber {
+    if (self.lineVMs.count <= lineNumber) {
+        NSAssert(0, @"index beyonds self.lineVMs.count");
+        return;
+    }
+    
+    BBLayoutLineModel *lineModel = nil;
+    if (self.lineVMs.count > lineNumber) {
+        lineModel = [self.lineVMs objectAtIndex:lineNumber];
+        [lineModel updateHeightBlock:heightBlock forView:view];
+    }
 }
 
 - (void)layout {
@@ -438,10 +481,13 @@
     [self showBorderWithColor:[UIColor redColor]];
 }
 - (void)showBorderWithColor:(UIColor *)color {
-#if DEBUG
-    self.layer.borderColor = color.CGColor;
-    self.layer.borderWidth = 1;
-#endif
+    [self showBorderWithColor:color width:1];
 }
 
+- (void)showBorderWithColor:(UIColor *)color width:(CGFloat)width {
+#if DEBUG
+    self.layer.borderColor = color.CGColor;
+    self.layer.borderWidth = MAX(0.5, width);
+#endif
+}
 @end

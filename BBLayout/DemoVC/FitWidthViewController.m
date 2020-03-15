@@ -45,7 +45,7 @@
         
         [_layoutView addView:self.titleLabel leading:5 lineNumber:0 fillWidth:YES];
         [_layoutView addView:label2 leading:5 lineNumber:1];
-        [_layoutView updateLineSpace:15 lineIndex:1];
+        [_layoutView updateLineSpace:15 lineNumber:1];
         
         [_layoutView showBorder];
     }

@@ -16,10 +16,14 @@
 //要布局的view
 @property (nonatomic, strong) UIView *view;
 
-// 自动适应大小
+//自动适应大小
 @property (nonatomic, assign) BOOL fitWidth;
-
+//填充剩余的宽度
 @property (nonatomic, assign) BOOL fillWidth;
+//外面设置的宽度block
+@property (nonatomic, copy) CGFloat (^widthBlock)(void);
+//外面设置的高度block
+@property (nonatomic, copy) CGFloat (^heightBlock)(void);
 
 //只有当fitWidth = YES并且布局发生变化时候才用这个值
 @property (nonatomic, assign) CGFloat orignalWidth;
@@ -309,6 +313,16 @@
     self.lineSpace = space;
 }
 
+- (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view {
+    BBLayoutItemModel *itemModel = [self itemVMWithView:view];
+    itemModel.widthBlock = widthBlock;
+}
+
+- (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view {
+    BBLayoutItemModel *itemModel = [self itemVMWithView:view];
+    itemModel.heightBlock = heightBlock;
+}
+
 #pragma mark - Getter & Setter
 - (NSMutableArray<BBLayoutItemModel *> *)vms {
     if (nil == _vms) {
@@ -335,10 +349,11 @@
 - (CGFloat)totalNeedWidth {
     CGFloat width = 0;
     for (BBLayoutItemModel *vm in self.vms) {
-        if (vm.view.hidden) {
-            continue;
+        if (vm.widthBlock) {
+            width += vm.leading + vm.widthBlock();
+        } else {
+            width += vm.leading + vm.width;
         }
-        width += vm.leading + vm.width;
     }
     return width;
 }
@@ -346,10 +361,7 @@
 - (CGFloat)totalWidthIgnoreLeading {
     CGFloat width = 0;
     for (BBLayoutItemModel *vm in self.vms) {
-        if (vm.view.hidden) {
-            continue;
-        }
-        width += vm.width;
+        width += (vm.widthBlock != nil ? vm.widthBlock() : vm.width);
     }
     return width;
 }
@@ -379,6 +391,9 @@
     for (NSInteger li = 0; li < [lineVM count]; li ++) {
         BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
         [itemVM calcLabelFitSize];
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
         
         if (nil == leading_view) {
             itemVM.left = itemVM.leading;
@@ -473,6 +488,9 @@
     for (NSInteger i = lineVM.count - 1; i >= 0; i --) {
         BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:i];
         [itemVM calcLabelFitSize];
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
         
         if (nil != tail_vm) {
             itemVM.right = tail_vm.left - tail_vm.leading;
@@ -582,6 +600,10 @@
         } else {
             itemVM.left = itemVM.leading + xPad;
         }
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
+        
         head_vm = itemVM;
     }
 }
@@ -616,10 +638,18 @@
             } else {
                 itemVM.left = 0;
             }
+            if (itemVM.widthBlock) {
+                itemVM.width = itemVM.widthBlock();
+            }
+            
             head_vm = itemVM;
         }
     } else {
         BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:0];
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
+        
         itemVM.centerX = bb_width / 2.0;
     }
 }
@@ -651,6 +681,11 @@
         } else {
             itemVM.left = space;
         }
+        
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
+        
         head_vm = itemVM;
     }
 }
@@ -682,6 +717,10 @@
         }
         pre_vm = itemModel;
         
+        if (itemModel.widthBlock) {
+            itemModel.width = itemModel.widthBlock();
+        }
+        
         if (itemModel.fillWidth)
             fillItemModel = itemModel;
     }
@@ -700,6 +739,10 @@
             itemModel.right = pre_vm.left - itemModel.leading;
         }
         pre_vm = itemModel;
+        
+        if (itemModel.widthBlock) {
+            itemModel.width = itemModel.widthBlock();
+        }
         
         if (itemModel.fillWidth)
             fillItemModel = itemModel;
@@ -780,7 +823,12 @@
 - (CGFloat)maxHeight {
     CGFloat maxHeight = 0;
     for (BBLayoutItemModel *vm in self.vms) {
-        maxHeight = MAX(maxHeight, vm.view.frame.size.height);
+        CGFloat h = vm.view.frame.size.height;
+        if (vm.heightBlock) {
+            h = vm.heightBlock();
+        }
+        
+        maxHeight = MAX(maxHeight, h);
     }
     return maxHeight;
 }
@@ -805,8 +853,13 @@
         [self layout_alignJustified:bb_width];
     }
     
-    //处理UILabel的高度
+    //处理的高度, 如果设置了高度block，就优先用这个
     for (BBLayoutItemModel *itemVM in self.vms) {
+        if (itemVM.heightBlock) {
+            itemVM.height = itemVM.heightBlock();
+            continue;
+        }
+        
         if ([itemVM.view isKindOfClass:[UILabel class]]) {
             UILabel *label = (UILabel *)(itemVM.view);
             if (label.numberOfLines == 0 || label.numberOfLines > 1) {
