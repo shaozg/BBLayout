@@ -42,7 +42,7 @@
 
 ## Demo效果(代码中都有的)
 
-![](https://github.com/shaozg/BBLayout/blob/master/BBLayout/DemoVC/demo.gif)
+![demo.gif](https://i.loli.net/2020/03/16/Xj62m8sC3HFbAqy.gif)
 
 ## 其它
 
