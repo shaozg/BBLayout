@@ -22,7 +22,7 @@
    ```objective-c
    CGRect rc = CGRectMake(0, naviBarHeight(), SCREEN_WIDTH, 50);
    _layoutView = [BBLayoutView layoutWithFrame:rc horizontalAlignment:BBLayoutHorizontalAlignmentCenter];
-   
+
    ```
 
 3. 添加要布局的view
@@ -42,7 +42,9 @@
 
 ## Demo效果(代码中都有的)
 
-![demo.gif](https://i.loli.net/2020/03/16/Xj62m8sC3HFbAqy.gif)
+![](https://github.com/shaozg/BBLayout/raw/master/BBLayout/DemoVC/demo.gif)
+
+ [图片无法打开?](https://i.loli.net/2020/03/16/Xj62m8sC3HFbAqy.gif)
 
 ## 其它
 
