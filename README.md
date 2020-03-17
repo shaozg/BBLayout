@@ -9,6 +9,28 @@
 
 ## Usage
 
+### Using [CocoaPods](http://cocoapods.org/)
+
+1. Add the pod `BBLayout` to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html).
+
+   ``` shell
+   pod 'BBLayout'
+   ```
+
+   
+
+2. 运行pod install.
+
+3. 导入头文件
+
+   ```objective-c
+   #import "BBLayoutView.h"
+   ```
+
+   
+
+
+
 ### Sample Code (Objective-C)
 
 1. 定义对象或者属性
