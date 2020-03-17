@@ -8,6 +8,15 @@
 
 #import "BBLayoutView.h"
 
+//! Project version number for BBLayout.
+extern const double BBLayoutVersionNumber;
+
+//! Project version string for BBLayout.
+extern const unsigned char BBLayoutVersionString[];
+
+const double BBLayoutVersionNumber __attribute__ ((used)) = 0.01;
+const unsigned char BBLayoutVersionString[] __attribute__ ((used)) = "0.0.1";
+
 @interface BBLayoutLineModel ()
 
 @property (nonatomic, assign) CGFloat bb_centerX;

@@ -77,6 +77,7 @@
 		683336C4240E4ECC008A9849 /* MultiLineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiLineViewController.m; sourceTree = "<group>"; };
 		683336ED240F4B8E008A9849 /* CellDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellDemoViewController.h; sourceTree = "<group>"; };
 		683336EE240F4B8E008A9849 /* CellDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellDemoViewController.m; sourceTree = "<group>"; };
+		6899373524208F1D00527E33 /* BBLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBLayout.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +164,7 @@
 				683336A7240E1B23008A9849 /* BBLayoutLineModel.h */,
 				680F3BEF241CD59F00D7A5FE /* BBLayoutLineModel.m */,
 				683336A6240E1B23008A9849 /* BBLayoutDefine.h */,
+				6899373524208F1D00527E33 /* BBLayout.h */,
 			);
 			path = Class;
 			sourceTree = "<group>";
