@@ -34,4 +34,10 @@ typedef NS_ENUM(NSInteger, BBLayoutVerticalAlignment) {
     BBLayoutVerticalAlignmentAverage       = 4, //等分垂直距离
 };
 
+//! Project version number for BBLayout.
+FOUNDATION_EXPORT double BBLayoutVersionNumber;
+
+//! Project version string for BBLayout.
+FOUNDATION_EXPORT const unsigned char BBLayoutVersionString[];
+
 #endif /* BBLayoutDefine_h */
