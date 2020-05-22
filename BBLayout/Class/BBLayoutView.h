@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateHorizontalAlignment:(BBLayoutHorizontalAlignment)hAlignment lineNumber:(NSInteger)lineNumber;
 - (void)updateLineSpace:(CGFloat)lineSpace;
 - (void)updateLineSpace:(CGFloat)lineSpace lineNumber:(NSInteger)lineNumber;
+- (void)updateLineItemSpace:(CGFloat)itemSpace;
+- (void)updateLineItemSpace:(CGFloat)itemSpace lineNumber:(NSInteger)lineNumber;
 - (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view;
 - (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view lineNumber:(NSInteger)lineNumber;
 - (void)updateHeightBlock:(CGFloat (^)(void))heightBlock forView:(UIView *)view;

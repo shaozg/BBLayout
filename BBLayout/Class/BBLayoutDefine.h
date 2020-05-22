@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, BBLayoutHorizontalAlignment) {
     BBLayoutHorizontalAlignmentEqualSpace= 3, //item之间等间距，如果只有一个item，居中显示。
     BBLayoutHorizontalAlignmentAverage   = 4, //等分水平距离
     BBLayoutHorizontalAlignmentJustified = 5, //两端对齐
+    BBLayoutHorizontalAlignmentCenterEqualSpace = 6, //居中对齐，item之间是等间距，不设置是0
     
     BBLayoutHorizontalAlignmentMax
 };

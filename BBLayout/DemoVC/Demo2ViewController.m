@@ -31,9 +31,9 @@
 
 - (BBLayoutView *)lv_justifiedContainer {
     if (nil == _lv_justifiedContainer) {
-        _lv_justifiedContainer = [BBLayoutView layoutWithFrame:CGRectZero horizontalAlignment:BBLayoutHorizontalAlignmentJustified];
+        _lv_justifiedContainer = [BBLayoutView layoutWithFrame:CGRectZero];
         
-        BBLayoutLineModel *lineModel = [BBLayoutLineModel lineModel];
+        BBLayoutLineModel *lineModel = [BBLayoutLineModel lineModelWithAlignment:BBLayoutHorizontalAlignmentJustified];
         [lineModel addView:[ViewFactory lableWithTitle:@"索引0"] leading:5 index:0];
         [lineModel addView:[ViewFactory lableWithTitle:@"索引1"] leading:10 index:1];
         [lineModel addView:[ViewFactory lableWithTitle:@"索引-1"] leading:5 index:-1];

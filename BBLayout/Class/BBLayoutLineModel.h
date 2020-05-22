@@ -20,7 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 //当前行与上一行的行间距
 @property (nonatomic, assign) CGFloat lineSpace;
 
+//item之间的间距, 只有当 alignment == BBLayoutHorizontalAlignmentCenterEqualSpace 的时候才用到这个值, 默认是0
+@property (nonatomic, assign) CGFloat itemSpace;
+
 + (instancetype)lineModel;
++ (instancetype)lineModelWithAlignment:(BBLayoutHorizontalAlignment)alignment;
 + (instancetype)lineModelWithSpace:(CGFloat)space;
 
 - (void)addView:(UIView *)theView;

@@ -134,6 +134,8 @@
 //行高，如果不设置，默认是当前行的最高的一个view 的高度
 @property (nonatomic, assign) CGFloat lineHeight;
 
+@property (nonatomic, strong) NSMutableDictionary *layoutFuns;
+
 @end
 
 @implementation BBLayoutLineModel
@@ -141,10 +143,17 @@
     return [BBLayoutLineModel lineModelWithSpace:0];
 }
 
++ (instancetype)lineModelWithAlignment:(BBLayoutHorizontalAlignment)alignment {
+    BBLayoutLineModel *line = [[BBLayoutLineModel alloc] init];
+    line.lineSpace = 0;
+    line.alignment = alignment;
+    return line;
+}
+
 + (instancetype)lineModelWithSpace:(CGFloat)space {
     BBLayoutLineModel *line = [[BBLayoutLineModel alloc] init];
     line.lineSpace = space;
-    line.alignment = BBLayoutHorizontalAlignmentMax; //未初始化标记
+    line.alignment = BBLayoutHorizontalAlignmentLeft;
     return line;
 }
 
@@ -152,6 +161,14 @@
     self = [super init];
     if (self) {
         _lineSpace = 0;
+        _layoutFuns = [NSMutableDictionary dictionary];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignLeft:)) forKey:@(BBLayoutHorizontalAlignmentLeft)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignRight:)) forKey:@(BBLayoutHorizontalAlignmentRight)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignCenter:)) forKey:@(BBLayoutHorizontalAlignmentCenter)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignAverage:)) forKey:@(BBLayoutHorizontalAlignmentAverage)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignEqualSpace:)) forKey:@(BBLayoutHorizontalAlignmentEqualSpace)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignJustified:)) forKey:@(BBLayoutHorizontalAlignmentJustified)];
+        [_layoutFuns setObject:NSStringFromSelector(@selector(layout_alignEqualSpaceCenter:)) forKey:@(BBLayoutHorizontalAlignmentCenterEqualSpace)];
     }
     return self;
 }
@@ -349,10 +366,15 @@
 - (CGFloat)totalNeedWidth {
     CGFloat width = 0;
     for (BBLayoutItemModel *vm in self.vms) {
+        CGFloat leading = vm.leading;
+        if (self.alignment == BBLayoutHorizontalAlignmentCenterEqualSpace) {
+            leading = self.itemSpace;
+        }
+        
         if (vm.widthBlock) {
-            width += vm.leading + vm.widthBlock();
+            width += leading + vm.widthBlock();
         } else {
-            width += vm.leading + vm.width;
+            width += leading + vm.width;
         }
     }
     return width;
@@ -775,6 +797,45 @@
     }
 }
 
+- (void)layout_alignEqualSpaceCenter:(CGFloat)bb_width {
+    BBLayoutLineModel *lineVM = self;
+    CGFloat xPad = 0;
+    CGFloat totalWidth = [lineVM totalNeedWidth];
+    if (totalWidth < bb_width) {
+        xPad = (bb_width - totalWidth) / 2.f;
+    } else {
+        for (NSInteger li = 0; li < [lineVM count]; li ++) {
+            BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:li];
+            [itemVM revertWidth];
+            if (itemVM.fitWidth) {
+                itemVM.width -= (totalWidth - bb_width);
+                break;
+            }
+        }
+    }
+    
+    //按宽度正好布局即可
+    BBLayoutItemModel *head_vm = nil;
+    for (NSInteger i = 0; i < lineVM.count; i ++) {
+        BBLayoutItemModel *itemVM = [lineVM itemVMAtIndex:i];
+        CGFloat leading = itemVM.leading;
+        if (lineVM.alignment == BBLayoutHorizontalAlignmentCenterEqualSpace) {
+            leading = lineVM.itemSpace;
+        }
+        
+        if (nil != head_vm) {
+            itemVM.left = head_vm.right + leading;
+        } else {
+            itemVM.left = leading + xPad;
+        }
+        if (itemVM.widthBlock) {
+            itemVM.width = itemVM.widthBlock();
+        }
+        
+        head_vm = itemVM;
+    }
+}
+
 #pragma mark - Getter & Setter
 - (CGFloat)bb_centerX {
     BBLayoutItemModel *itemModel = [self.vms firstObject];
@@ -834,23 +895,14 @@
 }
 
 - (void)layoutWithMaxWidth:(CGFloat)bb_width hAlignment:(BBLayoutHorizontalAlignment)hAlignment {
-    BBLayoutHorizontalAlignment align = hAlignment;
-    if (self.alignment >= BBLayoutHorizontalAlignmentLeft && self.alignment < BBLayoutHorizontalAlignmentMax) {
-        align = self.alignment;
-    }
+    BBLayoutHorizontalAlignment align = self.alignment;
     
-    if (BBLayoutHorizontalAlignmentLeft == align) {
-        [self layout_alignLeft:bb_width];
-    } else if (BBLayoutHorizontalAlignmentRight == align) {
-        [self layout_alignRight:bb_width];
-    } else if (BBLayoutHorizontalAlignmentCenter == align) {
-        [self layout_alignCenter:bb_width];
-    } else if (BBLayoutHorizontalAlignmentAverage == align) {
-        [self layout_alignAverage:bb_width];
-    } else if (BBLayoutHorizontalAlignmentEqualSpace == align) {
-        [self layout_alignEqualSpace:bb_width];
-    } else if (BBLayoutHorizontalAlignmentJustified == align) {
-        [self layout_alignJustified:bb_width];
+    NSString *selectStr = [_layoutFuns objectForKey:@(align)];
+    if (selectStr.length > 0) {
+        SEL sel = NSSelectorFromString(selectStr);
+        IMP imp = [self methodForSelector:sel];
+        void (*layout_fun)(id, SEL, CGFloat) = (void *)imp;
+        layout_fun(self, sel, bb_width);
     }
     
     //处理的高度, 如果设置了高度block，就优先用这个

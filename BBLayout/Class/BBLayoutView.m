@@ -74,6 +74,16 @@
     return _lineVMs;
 }
 
+- (void)setHorizontalAlignment:(BBLayoutHorizontalAlignment)horizontalAlignment {
+    if (_horizontalAlignment != horizontalAlignment) {
+        _horizontalAlignment = horizontalAlignment;
+        for (BBLayoutLineModel *lineVM in self.lineVMs) {
+            lineVM.alignment = horizontalAlignment;
+        }
+        [self layout];
+    }
+}
+
 #pragma mark - Private
 - (BBLayoutLineModel *)lineVMWithView:(UIView *)view {
     for (BBLayoutLineModel *lineVM in self.lineVMs) {
@@ -186,7 +196,7 @@
     BBLayoutLineModel *lineModel = nil;
     if (self.lineVMs.count == 0 ||
         (self.lineVMs.count == lineNumber && lineNumber > 0)) {
-        lineModel = [BBLayoutLineModel lineModel];
+        lineModel = [BBLayoutLineModel lineModelWithAlignment:self.horizontalAlignment];
         [self.lineVMs addObject:lineModel];
     } else if (self.lineVMs.count > lineNumber) {
         lineModel = [self.lineVMs objectAtIndex:lineNumber];
@@ -407,6 +417,20 @@
     
     BBLayoutLineModel *lineVM = [self.lineVMs objectAtIndex:lineNumber];
     lineVM.lineSpace = lineSpace;
+}
+
+- (void)updateLineItemSpace:(CGFloat)itemSpace {
+    [self updateLineItemSpace:itemSpace lineNumber:0];
+}
+
+- (void)updateLineItemSpace:(CGFloat)itemSpace lineNumber:(NSInteger)lineNumber {
+    if (self.lineVMs.count <= lineNumber) {
+        NSAssert(0, @"index beyonds self.lineVMs.count");
+        return;
+    }
+    
+    BBLayoutLineModel *lineVM = [self.lineVMs objectAtIndex:lineNumber];
+    lineVM.itemSpace = itemSpace;
 }
 
 - (void)updateWidthBlock:(CGFloat (^)(void))widthBlock forView:(UIView *)view {
