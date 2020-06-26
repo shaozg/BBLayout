@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, BBLayoutHorizontalAlignment) {
     BBLayoutHorizontalAlignmentCenter    = 1, //居中对齐
     BBLayoutHorizontalAlignmentRight     = 2, //右边对齐
     BBLayoutHorizontalAlignmentEqualSpace= 3, //item之间等间距，如果只有一个item，居中显示。
-    BBLayoutHorizontalAlignmentAverage   = 4, //等分水平距离
+    BBLayoutHorizontalAlignmentAverage   = 4, //等分水平距离，每一个view左右两边的距离都是相等的
     BBLayoutHorizontalAlignmentJustified = 5, //两端对齐
     BBLayoutHorizontalAlignmentCenterEqualSpace = 6, //居中对齐，item之间是等间距，不设置是0
     
@@ -35,10 +35,5 @@ typedef NS_ENUM(NSInteger, BBLayoutVerticalAlignment) {
     BBLayoutVerticalAlignmentAverage       = 4, //等分垂直距离
 };
 
-//! Project version number for BBLayout.
-FOUNDATION_EXPORT double BBLayoutVersionNumber;
-
-//! Project version string for BBLayout.
-FOUNDATION_EXPORT const unsigned char BBLayoutVersionString[];
 
 #endif /* BBLayoutDefine_h */

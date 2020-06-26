@@ -38,8 +38,10 @@
         [_layoutView addView:[ViewFactory viewWithSize:CGSizeMake(60, 40)] leading:10];
         [_layoutView addView:[ViewFactory viewWithSize:CGSizeMake(20, 50)] leading:20];
         [_layoutView addView:[ViewFactory viewWithSize:CGSizeMake(40, 20)] leading:30];
-        [_layoutView addView:[ViewFactory viewWithSize:CGSizeMake(100, 10)] leading:5];
+        UIView *lastView = [ViewFactory viewWithSize:CGSizeMake(100, 10)];
+        [_layoutView addView:lastView leading:5];
         
+        [_layoutView updateOtherLeading:5 forView:lastView];
         [_layoutView showBorder];
     }
     return _layoutView;

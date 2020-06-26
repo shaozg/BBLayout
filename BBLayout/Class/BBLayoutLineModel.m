@@ -521,7 +521,7 @@
         if (nil != tail_vm) {
             itemVM.right = tail_vm.left - tail_vm.leading;
         } else {
-            itemVM.right = bb_width;
+            itemVM.right = bb_width - itemVM.otherSideLeading;
         }
         tail_vm = itemVM;
     }
