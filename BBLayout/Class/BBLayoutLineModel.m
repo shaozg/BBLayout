@@ -368,7 +368,7 @@
     for (BBLayoutItemModel *vm in self.vms) {
         CGFloat leading = vm.leading;
         if (self.alignment == BBLayoutHorizontalAlignmentCenterEqualSpace) {
-            leading = self.itemSpace;
+            leading = 0;
         }
         
         if (vm.widthBlock) {
@@ -376,6 +376,10 @@
         } else {
             width += leading + vm.width;
         }
+    }
+    
+    if (self.alignment == BBLayoutHorizontalAlignmentCenterEqualSpace) {
+        width += self.itemSpace * MAX(0, (self.vms.count - 1));
     }
     return width;
 }
@@ -826,7 +830,7 @@
         if (nil != head_vm) {
             itemVM.left = head_vm.right + leading;
         } else {
-            itemVM.left = leading + xPad;
+            itemVM.left = xPad;
         }
         if (itemVM.widthBlock) {
             itemVM.width = itemVM.widthBlock();
