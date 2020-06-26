@@ -840,6 +840,40 @@
     }
 }
 
+#pragma mark - Private 计算方法
+- (CGFloat)boundingHeightWithLabel:(UILabel *)label lineSpace:(CGFloat)lineSpace {
+    CGFloat height = [self boundingSizeWithWidth:label.frame.size.width withTextFont:label.font withLineSpacing:lineSpace text:label.text].height;
+    
+    if (label.numberOfLines > 0) {
+        height = MIN(height, (label.font.lineHeight * label.numberOfLines + (label.numberOfLines - 1) * lineSpace));
+    }
+    
+    return height;
+}
+
+/**
+ *  根据文字内容动态计算UILabel宽高
+ *  @param maxWidth label宽度
+ *  @param font  字体
+ *  @param lineSpacing  行间距
+ *  @param text  内容
+ */
+// #此方法摘抄自 https://www.jianshu.com/p/ec58544a1449
+- (CGSize)boundingSizeWithWidth:(CGFloat)maxWidth
+                  withTextFont:(UIFont *)font
+               withLineSpacing:(CGFloat)lineSpacing
+                          text:(NSString *)text{
+    CGSize maxSize = CGSizeMake(maxWidth, CGFLOAT_MAX);
+    //段落样式
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    //设置行间距
+    [paragraphStyle setLineSpacing:lineSpacing];
+    
+    //计算文字尺寸
+    CGSize size = [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle} context:nil].size;
+    return size;
+}
+
 #pragma mark - Getter & Setter
 - (CGFloat)bb_centerX {
     BBLayoutItemModel *itemModel = [self.vms firstObject];
@@ -919,8 +953,7 @@
         if ([itemVM.view isKindOfClass:[UILabel class]]) {
             UILabel *label = (UILabel *)(itemVM.view);
             if (label.numberOfLines == 0 || label.numberOfLines > 1) {
-                CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                itemVM.height = rect.size.height + 0.1;
+                itemVM.height = [self boundingHeightWithLabel:label lineSpace:0];
                 break;
             }
             
